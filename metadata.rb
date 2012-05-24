@@ -9,6 +9,6 @@ supports "ubuntu"
 supports "debian"
 supports "suse"
 
-recommends "sudo"
+depends "sudo"
 
 recipe "vagrant_extras",  "Default recipe"

@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-template "/etc/sudoers.d/vagrant" do
-  source  "vagrant.sudoers.erb"
-  mode    "0440"
+include_recipe "sudo"
+
+sudo "vagrant" do
+  template "sudoers.erb"
 end
