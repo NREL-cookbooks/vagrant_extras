@@ -11,10 +11,21 @@ key_file = "/home/vagrant/.ssh/id_rsa"
 public_key_file = "#{key_file}.pub"
 authorized_keys_file = "/home/vagrant/.ssh/authorized_keys"
 
-execute "ssh-keygen -f #{key_file} -N ''" do
+bash "ssh-keygen" do
+  code <<-EOS
+    ssh-keygen -f #{key_file} -N ''
+    chown vagrant:vagrant #{key_file} #{public_key_file}
+  EOS
+
   not_if { File.exists?(key_file) }
 end
 
-execute "cat #{public_key_file} >> #{authorized_keys_file}" do
+bash "authorized_keys" do
+  code <<-EOS
+    cat #{public_key_file} >> #{authorized_keys_file}
+    chown vagrant:vagrant #{authorized_keys_file}
+    chmod 600 #{authorized_keys_file}
+  EOS
+
   not_if { File.exists?(key_file) && File.read(authorized_keys_file).include?(File.read(public_key_file)) }
 end
