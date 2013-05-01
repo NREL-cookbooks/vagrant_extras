@@ -20,3 +20,8 @@ cookbook_file "/etc/ssl/certs/vagrant.crt" do
   group "root"
   mode "0600"
 end
+
+# Combined certificate for HAProxy.
+execute "cat /etc/ssl/certs/vagrant.crt /etc/ssl/certs/vagrant.key > /etc/ssl/certs/vagrant.pem" do
+  not_if { ::File.exists?("/etc/ssl/certs/vagrant.pem") }
+end
