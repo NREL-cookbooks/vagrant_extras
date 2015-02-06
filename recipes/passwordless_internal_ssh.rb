@@ -13,6 +13,9 @@ authorized_keys_file = "/home/vagrant/.ssh/authorized_keys"
 
 bash "ssh-keygen" do
   code <<-EOS
+    mkdir -p /home/vagrant/.ssh
+    chown vagrant:vagrant /home/vagrant/.ssh
+    chmod 700 /home/vagrant/.ssh
     ssh-keygen -f #{key_file} -N ''
     chown vagrant:vagrant #{key_file} #{public_key_file}
   EOS
