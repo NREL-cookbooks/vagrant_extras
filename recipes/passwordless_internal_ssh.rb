@@ -30,5 +30,5 @@ bash "authorized_keys" do
     chmod 600 #{authorized_keys_file}
   EOS
 
-  not_if { File.exists?(key_file) && File.read(authorized_keys_file).include?(File.read(public_key_file)) }
+  not_if { File.exists?(authorized_keys_file) && File.read(authorized_keys_file).include?(File.read(public_key_file)) }
 end
