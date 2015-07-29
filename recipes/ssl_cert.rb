@@ -8,6 +8,8 @@
 #
 
 cookbook_file "/etc/ssl/certs/vagrant.key" do
+  # Don't override custom certs
+  action :create_if_missing
   source "ssl/vagrant.key"
   owner "root"
   group "root"
@@ -15,6 +17,8 @@ cookbook_file "/etc/ssl/certs/vagrant.key" do
 end
 
 cookbook_file "/etc/ssl/certs/vagrant.crt" do
+  # Don't override custom certs
+  action :create_if_missing
   source "ssl/vagrant.crt"
   owner "root"
   group "root"
